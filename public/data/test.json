@@ -1,0 +1,22 @@
+{
+    "title": "题库的标题",
+    "description": "题库的描述题库的描述题库的描述",
+    "questions": [
+      {
+        "type": "选择题",
+        "question": "如何开始学习JavaScript？",
+        "options": ["死记硬背","疯狂刷题","勇于实践","埋头苦干"],
+        "answer": "勇于实践"
+      },
+      {
+        "type": "判断题",
+        "question": "问题的描述",
+        "answer": true
+      },
+      {
+        "type": "简答题",
+        "question": "问题的描述",
+        "answer": "答案的描述"
+      }
+    ]
+  }
