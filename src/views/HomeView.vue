@@ -1,19 +1,31 @@
 <template>
-  <n-layout-content content-style="padding: 24px;">
-    <n-list>
-      <template #header> 题库列表 </template>
-      <n-list-item>
-        <router-link to="/question/test">
-          <n-thing title="题目" description="description" />
-        </router-link>
-      </n-list-item>
-    </n-list>
-  </n-layout-content>
-  <n-layout-footer>底部</n-layout-footer>
+
+  <div class="main">
+    <div class="header">
+      <Header></Header>
+    </div>
+    <div class="container">
+      <n-layout-content content-style="padding: 24px;" class="content">
+        <n-h2><n-text type="primary">题库列表</n-text></n-h2>
+        <question-bank-list/>
+      </n-layout-content>
+    </div>
+    <div class="footer">
+      <Footer></Footer>
+    </div>
+  </div>
+
+
 </template>
-<script setup></script>
+<script setup>
+import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
+import QuestionBankList from "@/components/QuestionBankList.vue";
+</script>
 <style>
-.n-layout-footer {
-  background: none;
+a {
+  text-decoration: none;
 }
+
+
 </style>
