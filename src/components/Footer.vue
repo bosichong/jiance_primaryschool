@@ -4,13 +4,11 @@
       <slot name="left"></slot>
     </n-space>
     <n-space>
-      <n-space justify="center">
         <n-button text style="font-size: 24px" type="success">
           <n-icon size="24">
             <LogoGithub/>
           </n-icon>
         </n-button>
-      </n-space>
     </n-space>
     <n-space>
       <slot name="right"></slot>
