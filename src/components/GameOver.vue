@@ -68,5 +68,7 @@ const score = computed(() => {
 </script>
 
 <style scoped>
-
+.over{
+  padding: 12px;
+}
 </style>
