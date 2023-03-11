@@ -1,28 +1,35 @@
 # JianCe 简测
 
-This template should help get you started developing with Vue 3 in Vite.
+JianCe是一个简简单单的学习结果检测的小工具，通过设置一组在线试题（题型包括：单选、多选、判断、简答）来检验学习结果。
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+界面预览：
+![](./doc/111.png)
 
-## Customize configuration
+准备答题
+![](./doc/222.png)
+![](./doc/333.png)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+暗黑主题
+![](./doc/444.png)
 
-## Project Setup
+答题结果、评分，错题展示。
+![](./doc/555.png)
+
+
+### 安装依赖
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 启动
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### 编译打包
 
 ```sh
 npm run build

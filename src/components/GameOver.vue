@@ -63,7 +63,7 @@ const score = computed(() => {
       error_answers.value.push(array)
     }
   }
-  return correctCount / props.qt_list.length * 100
+  return Math.round(correctCount / props.qt_list.length * 100)
 })
 </script>
 
