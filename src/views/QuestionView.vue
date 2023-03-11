@@ -12,6 +12,7 @@
             @add-index="currentIndex++"/>
 
         <div class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
+
           <div v-if="qs_list[currentIndex].type === '单选题'">
             <QsTitle :title="qs_list[currentIndex].question"/>
             <n-radio-group v-model:value="answers[currentIndex]">
@@ -64,6 +65,7 @@
               />
             </n-space>
           </div>
+
         </div>
 
         <GameOver
@@ -185,7 +187,7 @@ const handlePreviousQuestion = () => {
 }
 
 .content {
-  max-width: 90%;
+  max-width: 100%;
   text-align: center;
 }
 
