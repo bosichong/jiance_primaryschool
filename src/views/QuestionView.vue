@@ -98,6 +98,7 @@ import { ref} from "vue";
 import {useRoute} from "vue-router";
 import axios from "axios";
 import {useMessage} from 'naive-ui'
+import {shuffleArray} from "@/utils";
 
 
 import Header from "@/components/Header.vue";
@@ -133,7 +134,7 @@ const loadJsonData = (fame) => {
       .then((response) => {
         qs_title.value = response.data.title
         qs_description.value = response.data.description
-        qs_list.value = response.data.questions
+        qs_list.value = shuffleArray(response.data.questions) //随机打乱题库和题库中所有的选择题中的项目
       })
       .catch(() => {
         console.warn("");
