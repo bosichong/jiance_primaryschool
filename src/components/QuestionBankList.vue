@@ -26,7 +26,7 @@ const navigation = ref([])
 
 axios.get("/data/navigation.json").then((response)=>{
   navigation.value = response.data
-  console.log(navigation.value)
+  // console.log(navigation.value)
 })
 
 
