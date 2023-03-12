@@ -1,5 +1,5 @@
 <template>
-  <n-space justify="space-between">
+  <n-space justify="space-between" align="center">
     <n-space>
       <router-link to="/">
         <n-button text style="font-size: 24px" type="success">

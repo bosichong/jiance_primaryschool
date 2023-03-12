@@ -1,7 +1,18 @@
 <template>
   <div class="main">
     <div class="header">
-      <Header/>
+      <Header>
+          <div style="width: 50vw;">
+            <n-progress
+                v-if="currentIndex >= 0"
+                type="line"
+                :height="14"
+                status="success"
+                :percentage="percentage"
+                :indicator-placement="'inside'"
+            />
+          </div>
+      </Header>
     </div>
     <div class="container">
       <div class="content" v-if="qs_list">
@@ -94,11 +105,11 @@
   </div>
 </template>
 <script setup>
-import { ref} from "vue";
+import {ref, computed} from "vue";
 import {useRoute} from "vue-router";
 import axios from "axios";
 import {useMessage} from 'naive-ui'
-import {shuffleArray} from "@/utils";
+import {shuffleArray, percentToNumerator} from "@/utils";
 
 
 import Header from "@/components/Header.vue";
@@ -171,6 +182,11 @@ const handlePreviousQuestion = () => {
     currentIndex.value--
   }
 }
+
+const percentage = computed(() => {
+  return percentToNumerator(currentIndex.value, qs_list.value.length)
+})
+
 </script>
 <style>
 .main {
@@ -202,4 +218,6 @@ const handlePreviousQuestion = () => {
 .qt_textarea {
   text-align: left;
 }
+
+
 </style>

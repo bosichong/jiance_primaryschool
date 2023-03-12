@@ -38,5 +38,14 @@ function shuffleArray(arr) {
     return arr;
 }
 
+/**
+ * 通过计算返回答题进度，供进度条使用
+ * @param a 当前答题进度数值
+ * @param b 题库总数
+ * @returns {number} 返回百分数的分子值
+ */
+function percentToNumerator(a, b) {
+    return Math.round((a / b) * 100);  // 返回百分数的分子值
+}
 
-export { checkAnswer, shuffleArray }
+export {checkAnswer, shuffleArray, percentToNumerator}
