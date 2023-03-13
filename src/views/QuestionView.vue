@@ -136,12 +136,12 @@ const filename = ref(route.params.filename);
 
 /**
  * 加载题库
- * @param fame data目录中的json文件名，注意这里不需要扩展名.json
+ * @param filepath
  */
-const loadJsonData = (fame) => {
-  fame = fame.replace(/\.json$/, "");
+const loadJsonData = (filepath) => {
+  let name = filepath+".json";
   axios
-      .get(`/data/${fame}.json`)
+      .get(`/data/${name}`)
       .then((response) => {
         qs_title.value = response.data.title
         qs_description.value = response.data.description

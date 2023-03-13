@@ -11,7 +11,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/question/:filename',
+      path: '/question/:filename(.+)',
       name: 'question',
       component: Question,
       props: true
