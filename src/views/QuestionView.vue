@@ -20,6 +20,7 @@
             :index="currentIndex"
             :title="qs_title"
             :description="qs_description"
+            :count = "qs_list.length"
             @add-index="currentIndex++"/>
 
         <div class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">

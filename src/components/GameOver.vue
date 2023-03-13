@@ -3,7 +3,7 @@
     <n-space vertical>
       <n-h2>考完了,您的得分为：{{ score }}</n-h2>
       <n-space justify="center">
-          <n-button @click="refresh" type="primary">重新答题</n-button>
+        <n-button @click="refresh" type="primary">重新答题</n-button>
         <router-link to="/">
           <n-button type="tertiary">返回首页</n-button>
         </router-link>
@@ -11,6 +11,7 @@
       <n-table :bordered="false" :single-line="false">
         <thead>
         <tr>
+          <th>出错问题</th>
           <th>你的答案</th>
           <th>正确答案</th>
         </tr>
@@ -19,6 +20,7 @@
         <tr>
           <td>{{ tr[0] }}</td>
           <td>{{ tr[1] }}</td>
+          <td>{{ tr[2] }}</td>
         </tr>
         </tbody>
       </n-table>
@@ -52,14 +54,14 @@ const score = computed(() => {
       if (checkAnswer(props.answers[i], props.qt_list[i].answer)) {
         correctCount++
       } else {
-        let array = [props.answers[i], props.qt_list[i].answer]
+        let array = [props.qt_list[i].question, props.answers[i], props.qt_list[i].answer]
         error_answers.value.push(array)
       }
     } else if (props.answers[i] === props.qt_list[i].answer) {
       correctCount++
     } else {
 
-      let array = [props.answers[i], props.qt_list[i].answer]
+      let array = [props.qt_list[i].question,props.answers[i], props.qt_list[i].answer]
       error_answers.value.push(array)
     }
   }
@@ -68,7 +70,7 @@ const score = computed(() => {
 </script>
 
 <style scoped>
-.over{
+.over {
   padding: 12px;
 }
 </style>
