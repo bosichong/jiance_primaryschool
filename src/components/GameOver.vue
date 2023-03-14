@@ -2,6 +2,7 @@
   <div class="over" v-if="index >= qt_list.length">
     <n-space vertical>
       <n-h2>考完了,您的得分为：{{ score }}</n-h2>
+      <n-text>本次答题用时：{{ usetime }}</n-text>
       <n-space justify="center">
         <n-button @click="refresh" type="primary">重新答题</n-button>
         <router-link to="/">
@@ -34,7 +35,7 @@
 import {computed, ref} from "vue";
 import {checkAnswer} from "@/utils";
 
-const props = defineProps(["index", "qt_list", "answers", "filename"])
+const props = defineProps(["index", "qt_list", "answers", "filename","usetime"])
 const error_answers = ref([])
 
 const refresh = () => {

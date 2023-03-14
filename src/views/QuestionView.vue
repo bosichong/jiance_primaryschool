@@ -2,16 +2,20 @@
   <div class="main">
     <div class="header">
       <Header>
-          <div style="width: 50vw;">
-            <n-progress
-                v-if="currentIndex >= 0"
-                type="line"
-                :height="14"
-                status="success"
-                :percentage="percentage"
-                :indicator-placement="'inside'"
-            />
-          </div>
+        <div style="width: 50vw; text-align: center">
+            <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
+                  v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
+              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active"/>
+            </span>
+          <n-progress
+              v-if="currentIndex >= 0"
+              type="line"
+              :height="14"
+              status="success"
+              :percentage="percentage"
+              :indicator-placement="'inside'"
+          />
+        </div>
       </Header>
     </div>
     <div class="container">
@@ -20,7 +24,7 @@
             :index="currentIndex"
             :title="qs_title"
             :description="qs_description"
-            :count = "qs_list.length"
+            :count="qs_list.length"
             @add-index="currentIndex++"/>
 
         <div class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
@@ -85,6 +89,7 @@
             :qt_list="qs_list"
             :answers="answers"
             :filename="filename"
+            :usetime="use_time"
         />
       </div>
     </div>
@@ -106,11 +111,11 @@
   </div>
 </template>
 <script setup>
-import {ref, computed} from "vue";
+import {ref, computed, watch} from "vue";
 import {useRoute} from "vue-router";
 import axios from "axios";
 import {useMessage} from 'naive-ui'
-import {shuffleArray, percentToNumerator} from "@/utils";
+import {shuffleArray, percentToNumerator, formattedTime} from "@/utils";
 
 
 import Header from "@/components/Header.vue";
@@ -130,7 +135,13 @@ const warning = () => {
 const qs_title = ref('')
 const qs_description = ref('')
 const qs_list = ref([])
+const qs_time = ref(0)
 
+const start_time = ref(new Date())
+const end_time = ref(new Date())
+const use_time = ref("")
+
+const countdown_active = ref(true)// 倒计时暂停
 const currentIndex = ref(-1); //当前问题索引，-1的时候为开始页面
 const answers = ref([]); // 所有回答
 const filename = ref(route.params.filename);
@@ -140,12 +151,13 @@ const filename = ref(route.params.filename);
  * @param filepath
  */
 const loadJsonData = (filepath) => {
-  let name = filepath+".json";
+  let name = filepath + ".json";
   axios
       .get(`/data/${name}`)
       .then((response) => {
         qs_title.value = response.data.title
         qs_description.value = response.data.description
+        qs_time.value = response.data.time
         qs_list.value = shuffleArray(response.data.questions) //随机打乱题库和题库中所有的选择题中的项目
       })
       .catch(() => {
@@ -184,9 +196,30 @@ const handlePreviousQuestion = () => {
   }
 }
 
+/**
+ * 答题进度
+ * @type {ComputedRef<number>}
+ */
 const percentage = computed(() => {
   return percentToNumerator(currentIndex.value, qs_list.value.length)
 })
+
+
+/**
+ * 答题侦听器，控制答题倒计时的暂停，答题计时时长
+ */
+watch(currentIndex, (index) => {
+  if (index === 0) {
+    start_time.value = new Date()
+  } else if (index >= qs_list.value.length) {
+    countdown_active.value = false//答题结束后，倒计时暂停
+    // 计算答题用时
+    end_time.value = new Date()
+    use_time.value = formattedTime(start_time.value, end_time.value)
+
+  }
+})
+
 
 </script>
 <style>
