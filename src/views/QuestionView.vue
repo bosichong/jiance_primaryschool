@@ -5,7 +5,7 @@
         <div style="width: 50vw; text-align: center">
             <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
                   v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
-              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active"/>
+              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
             </span>
           <n-progress
               v-if="currentIndex >= 0"
@@ -220,6 +220,14 @@ watch(currentIndex, (index) => {
   }
 })
 
+
+const gameOver = () =>{
+  for (let i = currentIndex.value; i <qs_list.value.length; i++) {
+    answers.value[i] = ""
+  }
+  currentIndex.value = qs_list.value.length
+
+}
 
 </script>
 <style>

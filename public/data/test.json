@@ -1,7 +1,7 @@
 {
   "title": "题库的标题",
   "description": "题库的描述题库的描述题库的描述",
-  "time": 60,
+  "time": 20,
   "questions": [
     {
       "type": "单选题",
