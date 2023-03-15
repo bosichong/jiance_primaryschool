@@ -1,3 +1,4 @@
+
 [
   {
     "title": "测试标题1",
@@ -5,7 +6,17 @@
       {
         "title": "子标题1",
         "description": "description",
-        "url": "/question/math/test"
+        "url": "/question/test"
+      }
+    ]
+  },
+  {
+    "title": "测试标题2",
+    "items": [
+      {
+        "title": "子标题3",
+        "description": "description",
+        "url": "/question/test"
       }
     ]
   }

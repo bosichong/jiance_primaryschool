@@ -48,4 +48,29 @@ function percentToNumerator(a, b) {
     return Math.round((a / b) * 100);  // 返回百分数的分子值
 }
 
-export {checkAnswer, shuffleArray, percentToNumerator}
+/**
+ * 计时器 返回一个时间
+ * @param start_time
+ * @param end_time
+ * @returns {string}
+ */
+function formattedTime(start_time, end_time) {
+    if (start_time && end_time) {
+        let diff = end_time - start_time;
+        let hours = Math.floor(diff / 3600000);
+        let minutes = Math.floor((diff % 3600000) / 60000);
+        let seconds = Math.floor(((diff % 3600000) % 60000) / 1000);
+
+        return (
+            (hours < 10 ? "0" + hours : hours) +
+            ":" +
+            (minutes < 10 ? "0" + minutes : minutes) +
+            ":" +
+            (seconds < 10 ? "0" + seconds : seconds)
+        );
+    } else {
+        return "00:00:00";
+    }
+}
+
+export {checkAnswer, shuffleArray, percentToNumerator,formattedTime}

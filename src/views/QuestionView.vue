@@ -2,16 +2,20 @@
   <div class="main">
     <div class="header">
       <Header>
-          <div style="width: 50vw;">
-            <n-progress
-                v-if="currentIndex >= 0"
-                type="line"
-                :height="14"
-                status="success"
-                :percentage="percentage"
-                :indicator-placement="'inside'"
-            />
-          </div>
+        <div style="width: 50vw; text-align: center">
+            <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
+                  v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
+              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
+            </span>
+          <n-progress
+              v-if="currentIndex >= 0"
+              type="line"
+              :height="14"
+              status="success"
+              :percentage="percentage"
+              :indicator-placement="'inside'"
+          />
+        </div>
       </Header>
     </div>
     <div class="container">
@@ -20,63 +24,40 @@
             :index="currentIndex"
             :title="qs_title"
             :description="qs_description"
+            :count="qs_list.length"
             @add-index="currentIndex++"/>
 
         <div class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
 
-          <div v-if="qs_list[currentIndex].type === '单选题'">
-            <QsTitle :title="qs_list[currentIndex].question"/>
-            <n-radio-group v-model:value="answers[currentIndex]">
-              <n-space>
-                <n-radio
-                    v-for="q in qs_list[currentIndex].options"
-                    :key="q"
-                    :value="q"
-                >
-                  {{ q }}
-                </n-radio>
-              </n-space>
-            </n-radio-group>
-          </div>
+          <QuestionRadio
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :options="qs_list[currentIndex].options"
+              :answers="answers"
+              :index="currentIndex"
+          />
 
-          <div v-if="qs_list[currentIndex].type === '多选题'">
-            <QsTitle :title="qs_list[currentIndex].question"/>
-            <n-checkbox-group v-model:value="answers[currentIndex]">
-              <n-space>
-                <n-checkbox
-                    v-for="q in qs_list[currentIndex].options"
-                    :key="q"
-                    :value="q"
-                >
-                  {{ q }}
-                </n-checkbox>
-              </n-space>
-            </n-checkbox-group>
-          </div>
+          <QuestionCheckbox
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :options="qs_list[currentIndex].options"
+              :answers="answers"
+              :index="currentIndex"
+          />
 
-          <div v-else-if="qs_list[currentIndex].type === '判断题'">
-            <QsTitle :title="qs_list[currentIndex].question"/>
-            <n-switch size="large" v-model:value="answers[currentIndex]" checked-value="正确" unchecked-value="错误">
-              <template #checked>
-                正确
-              </template>
-              <template #unchecked>
-                错误
-              </template>
-            </n-switch>
-          </div>
+          <QuestionSwitch
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :answers="answers"
+              :index="currentIndex"
+          />
 
-          <div v-else-if="qs_list[currentIndex].type === '简答题'">
-            <n-space vertical>
-              <QsTitle :title="qs_list[currentIndex].question"/>
-              <n-input class="qt_textarea"
-                       v-model:value="answers[currentIndex]"
-                       type="textarea"
-                       placeholder="请输入答案"
-              />
-            </n-space>
-          </div>
-
+          <QuestionInput
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :answers="answers"
+              :index="currentIndex"
+          />
         </div>
 
         <GameOver
@@ -84,6 +65,7 @@
             :qt_list="qs_list"
             :answers="answers"
             :filename="filename"
+            :usetime="use_time"
         />
       </div>
     </div>
@@ -105,18 +87,22 @@
   </div>
 </template>
 <script setup>
-import {ref, computed} from "vue";
+import {ref, computed, watch} from "vue";
 import {useRoute} from "vue-router";
 import axios from "axios";
 import {useMessage} from 'naive-ui'
-import {shuffleArray, percentToNumerator} from "@/utils";
+import {shuffleArray, percentToNumerator, formattedTime} from "@/utils";
 
 
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
-import GameStart from "@/components/GameStart.vue";
-import GameOver from "@/components/GameOver.vue";
-import QsTitle from "@/components/QsTitle.vue";
+import GameStart from "@/components/question/GameStart.vue";
+import GameOver from "@/components/question/GameOver.vue";
+import QuestionRadio from "@/components/question/QuestionRadio.vue";
+import QuestionCheckbox from "@/components/question/QuestionCheckbox.vue";
+import QuestionSwitch from "@/components/question/QuestionSwitch.vue";
+import QuestionInput from "@/components/question/QuestionInput.vue";
+
 
 const route = useRoute();
 // 警告信息框
@@ -129,7 +115,13 @@ const warning = () => {
 const qs_title = ref('')
 const qs_description = ref('')
 const qs_list = ref([])
+const qs_time = ref(0)
 
+const start_time = ref(new Date())
+const end_time = ref(new Date())
+const use_time = ref("")
+
+const countdown_active = ref(true)// 倒计时暂停
 const currentIndex = ref(-1); //当前问题索引，-1的时候为开始页面
 const answers = ref([]); // 所有回答
 const filename = ref(route.params.filename);
@@ -139,12 +131,13 @@ const filename = ref(route.params.filename);
  * @param filepath
  */
 const loadJsonData = (filepath) => {
-  let name = filepath+".json";
+  let name = filepath + ".json";
   axios
       .get(`/data/${name}`)
       .then((response) => {
         qs_title.value = response.data.title
         qs_description.value = response.data.description
+        qs_time.value = response.data.time
         qs_list.value = shuffleArray(response.data.questions) //随机打乱题库和题库中所有的选择题中的项目
       })
       .catch(() => {
@@ -183,9 +176,38 @@ const handlePreviousQuestion = () => {
   }
 }
 
+/**
+ * 答题进度
+ * @type {ComputedRef<number>}
+ */
 const percentage = computed(() => {
   return percentToNumerator(currentIndex.value, qs_list.value.length)
 })
+
+
+/**
+ * 答题侦听器，控制答题倒计时的暂停，答题计时时长
+ */
+watch(currentIndex, (index) => {
+  if (index === 0) {
+    start_time.value = new Date()
+  } else if (index >= qs_list.value.length) {
+    countdown_active.value = false//答题结束后，倒计时暂停
+    // 计算答题用时
+    end_time.value = new Date()
+    use_time.value = formattedTime(start_time.value, end_time.value)
+
+  }
+})
+
+
+const gameOver = () => {
+  for (let i = currentIndex.value; i < qs_list.value.length; i++) {
+    answers.value[i] = ""
+  }
+  currentIndex.value = qs_list.value.length
+
+}
 
 </script>
 <style>
@@ -215,9 +237,6 @@ const percentage = computed(() => {
   padding: 1vh;
 }
 
-.qt_textarea {
-  text-align: left;
-}
 
 
 </style>
