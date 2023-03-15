@@ -3,7 +3,7 @@
   <div v-if="qs_type === '多选题'">
     <QsTitle :title="qs_title"/>
     <n-checkbox-group v-model:value="answers[index]">
-      <n-space>
+      <n-space vertical align="start">
         <n-checkbox
             v-for="q in options"
             :key="q"
