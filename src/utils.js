@@ -30,7 +30,7 @@ function shuffleArray(arr) {
         // 如果当前元素包含options属性
         if (arr[i]["options"]) {
             // 随机打乱options数组排序
-            arr[i]["options"].sort(() => Math.random() - 0.15);
+            arr[i]["options"].sort(() => Math.random() - 0.5);
         }
     }
 
