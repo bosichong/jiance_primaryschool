@@ -29,59 +29,35 @@
 
         <div class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
 
-          <div v-if="qs_list[currentIndex].type === '单选题'">
-            <QsTitle :title="qs_list[currentIndex].question"/>
-            <n-radio-group v-model:value="answers[currentIndex]">
-              <n-space>
-                <n-radio
-                    v-for="q in qs_list[currentIndex].options"
-                    :key="q"
-                    :value="q"
-                >
-                  {{ q }}
-                </n-radio>
-              </n-space>
-            </n-radio-group>
-          </div>
+          <QuestionRadio
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :options="qs_list[currentIndex].options"
+              :answers="answers"
+              :index="currentIndex"
+          />
 
-          <div v-if="qs_list[currentIndex].type === '多选题'">
-            <QsTitle :title="qs_list[currentIndex].question"/>
-            <n-checkbox-group v-model:value="answers[currentIndex]">
-              <n-space>
-                <n-checkbox
-                    v-for="q in qs_list[currentIndex].options"
-                    :key="q"
-                    :value="q"
-                >
-                  {{ q }}
-                </n-checkbox>
-              </n-space>
-            </n-checkbox-group>
-          </div>
+          <QuestionCheckbox
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :options="qs_list[currentIndex].options"
+              :answers="answers"
+              :index="currentIndex"
+          />
 
-          <div v-else-if="qs_list[currentIndex].type === '判断题'">
-            <QsTitle :title="qs_list[currentIndex].question"/>
-            <n-switch size="large" v-model:value="answers[currentIndex]" checked-value="正确" unchecked-value="错误">
-              <template #checked>
-                正确
-              </template>
-              <template #unchecked>
-                错误
-              </template>
-            </n-switch>
-          </div>
+          <QuestionSwitch
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :answers="answers"
+              :index="currentIndex"
+          />
 
-          <div v-else-if="qs_list[currentIndex].type === '简答题'">
-            <n-space vertical>
-              <QsTitle :title="qs_list[currentIndex].question"/>
-              <n-input class="qt_textarea"
-                       v-model:value="answers[currentIndex]"
-                       type="textarea"
-                       placeholder="请输入答案"
-              />
-            </n-space>
-          </div>
-
+          <QuestionInput
+              :qs_type="qs_list[currentIndex].type"
+              :qs_title="qs_list[currentIndex].question"
+              :answers="answers"
+              :index="currentIndex"
+          />
         </div>
 
         <GameOver
@@ -120,9 +96,14 @@ import {shuffleArray, percentToNumerator, formattedTime} from "@/utils";
 
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
-import GameStart from "@/components/GameStart.vue";
-import GameOver from "@/components/GameOver.vue";
-import QsTitle from "@/components/QsTitle.vue";
+import GameStart from "@/components/question/GameStart.vue";
+import GameOver from "@/components/question/GameOver.vue";
+import QsTitle from "@/components/question/QsTitle.vue";
+import QuestionRadio from "@/components/question/QuestionRadio.vue";
+import QuestionCheckbox from "@/components/question/QuestionCheckbox.vue";
+import QuestionSwitch from "@/components/question/QuestionSwitch.vue";
+import QuestionInput from "@/components/question/QuestionInput.vue";
+
 
 const route = useRoute();
 // 警告信息框
@@ -221,8 +202,8 @@ watch(currentIndex, (index) => {
 })
 
 
-const gameOver = () =>{
-  for (let i = currentIndex.value; i <qs_list.value.length; i++) {
+const gameOver = () => {
+  for (let i = currentIndex.value; i < qs_list.value.length; i++) {
     answers.value[i] = ""
   }
   currentIndex.value = qs_list.value.length
