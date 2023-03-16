@@ -2,11 +2,7 @@
   <div class="main">
     <div class="header">
       <Header>
-        <div style="width: 50vw; text-align: center">
-            <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
-                  v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
-              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
-            </span>
+        <n-space vertical style="width: 50vw; text-align: center">
           <n-progress
               v-if="currentIndex >= 0"
               type="line"
@@ -15,11 +11,18 @@
               :percentage="percentage"
               :indicator-placement="'inside'"
           />
-        </div>
+        </n-space>
       </Header>
     </div>
     <div class="container">
       <div class="content" v-if="qs_list" @keyup.ctrl.enter="handleNextQuestion">
+        <n-text type="success">
+        <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
+              v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
+          答题倒计时:
+              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
+        </span>
+        </n-text>
         <GameStart
             :index="currentIndex"
             :title="qs_title"
@@ -50,6 +53,7 @@
               :qs_title="qs_list[currentIndex].question"
               :answers="answers"
               :index="currentIndex"
+              :key="textkey"
           />
 
           <QuestionInput
@@ -57,7 +61,7 @@
               :qs_title="qs_list[currentIndex].question"
               :answers="answers"
               :index="currentIndex"
-              :textkey="textkey"
+              :key="textkey"
           />
 
         </div>
@@ -237,11 +241,9 @@ const gameOver = () => {
 
 .header,
 .footer {
-  height: 36px;
-  line-height: 36px;
+  height: 60px;
   padding: 1vh;
 }
-
 
 
 </style>
