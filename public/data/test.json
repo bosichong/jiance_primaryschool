@@ -1,7 +1,7 @@
 {
   "title": "题库的标题",
   "description": "题库的描述题库的描述题库的描述",
-  "time": 20,
+  "time": 2000,
   "questions": [
     {
       "type": "单选题",
@@ -29,9 +29,29 @@
       ]
     },
     {
-      "type": "判断题",
-      "question": "JavaScript是世界上最好的编程语言？",
-      "answer": "错误"
+      "type": "简答题",
+      "question": "为什么叫JavaScript？",
+      "answer": "JavaScript 在刚诞生的时候，它的名字叫 “LiveScript”。但是因为当时 Java 很流行，所以决定将一种新语言定位为 Java 的“弟弟”会有助于它的流行"
+    },
+    {
+      "type": "简答题",
+      "question": "为什么叫JavaScript？",
+      "answer": "JavaScript 在刚诞生的时候，它的名字叫 “LiveScript”。但是因为当时 Java 很流行，所以决定将一种新语言定位为 Java 的“弟弟”会有助于它的流行"
+    },
+    {
+      "type": "简答题",
+      "question": "为什么叫JavaScript？",
+      "answer": "JavaScript 在刚诞生的时候，它的名字叫 “LiveScript”。但是因为当时 Java 很流行，所以决定将一种新语言定位为 Java 的“弟弟”会有助于它的流行"
+    },
+    {
+      "type": "简答题",
+      "question": "为什么叫JavaScript？",
+      "answer": "JavaScript 在刚诞生的时候，它的名字叫 “LiveScript”。但是因为当时 Java 很流行，所以决定将一种新语言定位为 Java 的“弟弟”会有助于它的流行"
+    },
+    {
+      "type": "简答题",
+      "question": "为什么叫JavaScript？",
+      "answer": "JavaScript 在刚诞生的时候，它的名字叫 “LiveScript”。但是因为当时 Java 很流行，所以决定将一种新语言定位为 Java 的“弟弟”会有助于它的流行"
     },
     {
       "type": "简答题",

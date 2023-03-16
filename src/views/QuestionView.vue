@@ -19,7 +19,7 @@
       </Header>
     </div>
     <div class="container">
-      <div class="content" v-if="qs_list">
+      <div class="content" v-if="qs_list" @keyup.ctrl.enter="handleNextQuestion">
         <GameStart
             :index="currentIndex"
             :title="qs_title"
@@ -57,7 +57,9 @@
               :qs_title="qs_list[currentIndex].question"
               :answers="answers"
               :index="currentIndex"
+              :textkey="textkey"
           />
+
         </div>
 
         <GameOver
@@ -126,6 +128,8 @@ const currentIndex = ref(-1); //当前问题索引，-1的时候为开始页面
 const answers = ref([]); // 所有回答
 const filename = ref(route.params.filename);
 
+const textkey = ref(0)
+
 /**
  * 加载题库
  * @param filepath
@@ -167,6 +171,7 @@ const handleNextQuestion = () => {
 
     }
   }
+  textkey.value++
 };
 const handlePreviousQuestion = () => {
   // 返回最大到0
