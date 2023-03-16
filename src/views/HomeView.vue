@@ -5,7 +5,7 @@
       <Header></Header>
     </div>
     <div class="container">
-      <n-layout-content content-style="padding: 24px;" class="content">
+      <n-layout-content class="content">
         <question-bank-list/>
       </n-layout-content>
     </div>

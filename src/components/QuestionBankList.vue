@@ -1,6 +1,6 @@
 <template>
 
-  <n-layout-content v-for="item in navigation" content-style="padding: 24px;" class="content">
+  <div v-for="item in navigation"  class="content">
     <n-h2><n-text type="primary">{{ item.title }}</n-text></n-h2>
     <n-grid :x-gap="8" :y-gap="14" cols="1 400:2 600:3 800:4 1000:5 1200:6">
       <n-grid-item v-for="it in item.items">
@@ -13,7 +13,7 @@
         </div>
       </n-grid-item>
     </n-grid>
-  </n-layout-content>
+  </div>
 
 
 </template>

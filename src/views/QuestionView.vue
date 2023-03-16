@@ -3,10 +3,6 @@
     <div class="header">
       <Header>
         <n-space vertical style="width: 50vw; text-align: center">
-            <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
-                  v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
-              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
-            </span>
           <n-progress
               v-if="currentIndex >= 0"
               type="line"
@@ -20,6 +16,7 @@
     </div>
     <div class="container">
       <div class="content" v-if="qs_list" @keyup.ctrl.enter="handleNextQuestion">
+
         <GameStart
             :index="currentIndex"
             :title="qs_title"
@@ -27,7 +24,9 @@
             :count="qs_list.length"
             @add-index="currentIndex++"/>
 
-        <div class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
+        <n-space vertical class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
+
+
 
           <QuestionRadio
               :qs_type="qs_list[currentIndex].type"
@@ -61,7 +60,15 @@
               :key="textkey"
           />
 
-        </div>
+          <n-text type="success">
+          <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
+                v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
+            答题倒计时:
+            <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
+          </span>
+          </n-text>
+
+        </n-space>
 
         <GameOver
             :index="currentIndex"
@@ -70,7 +77,10 @@
             :filename="filename"
             :usetime="use_time"
         />
+
+
       </div>
+
     </div>
     <div class="footer">
       <Footer>
@@ -235,6 +245,7 @@ const gameOver = () => {
 .content {
   max-width: 100%;
   text-align: center;
+  padding: 12px;
 }
 
 .header,
@@ -242,7 +253,6 @@ const gameOver = () => {
   height: 60px;
   padding: 1vh;
 }
-
 
 
 </style>

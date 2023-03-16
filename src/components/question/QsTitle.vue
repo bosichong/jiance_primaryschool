@@ -1,5 +1,5 @@
 <template>
-  <p class="qstitle">{{ title }}</p>
+  <n-space>{{ title }}</n-space>
 </template>
 
 <script setup>
@@ -7,8 +7,4 @@ const props = defineProps(["title"])
 </script>
 
 <style scoped>
-.qstitle{
-  font-size: 18px;
-}
-
 </style>
