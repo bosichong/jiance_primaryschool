@@ -26,5 +26,4 @@ const props = defineProps(["qs_type","qs_title","options","answers","index"])
 .n-radio{
   font-size: 1.1rem;
 }
-
 </style>

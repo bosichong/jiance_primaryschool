@@ -20,5 +20,7 @@ const props = defineProps(["qs_type", "qs_title", "answers", "index",])
 </script>
 
 <style scoped>
-
+.qt_textarea{
+  text-align: left;
+}
 </style>

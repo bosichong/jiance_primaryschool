@@ -7,6 +7,4 @@ const props = defineProps(["title"])
 </script>
 
 <style scoped>
-
-
 </style>

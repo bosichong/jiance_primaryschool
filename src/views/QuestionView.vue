@@ -16,13 +16,7 @@
     </div>
     <div class="container">
       <div class="content" v-if="qs_list" @keyup.ctrl.enter="handleNextQuestion">
-        <n-text type="success">
-        <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
-              v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
-          答题倒计时:
-              <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
-        </span>
-        </n-text>
+
         <GameStart
             :index="currentIndex"
             :title="qs_title"
@@ -30,7 +24,9 @@
             :count="qs_list.length"
             @add-index="currentIndex++"/>
 
-        <div class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
+        <n-space vertical class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
+
+
 
           <QuestionRadio
               :qs_type="qs_list[currentIndex].type"
@@ -64,7 +60,15 @@
               :key="textkey"
           />
 
-        </div>
+          <n-text type="success">
+          <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
+                v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
+            答题倒计时:
+            <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
+          </span>
+          </n-text>
+
+        </n-space>
 
         <GameOver
             :index="currentIndex"
@@ -73,7 +77,10 @@
             :filename="filename"
             :usetime="use_time"
         />
+
+
       </div>
+
     </div>
     <div class="footer">
       <Footer>
@@ -104,6 +111,7 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import GameStart from "@/components/question/GameStart.vue";
 import GameOver from "@/components/question/GameOver.vue";
+import QsTitle from "@/components/question/QsTitle.vue";
 import QuestionRadio from "@/components/question/QuestionRadio.vue";
 import QuestionCheckbox from "@/components/question/QuestionCheckbox.vue";
 import QuestionSwitch from "@/components/question/QuestionSwitch.vue";
@@ -237,6 +245,7 @@ const gameOver = () => {
 .content {
   max-width: 100%;
   text-align: center;
+  padding: 12px;
 }
 
 .header,
