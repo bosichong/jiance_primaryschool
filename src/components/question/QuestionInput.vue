@@ -7,7 +7,6 @@
                type="textarea"
                placeholder="请输入答案"
                :key="textkey"
-
       />
     </n-space>
   </div>
@@ -15,11 +14,9 @@
 
 <script setup>
 import QsTitle from "@/components/question/QsTitle.vue";
-import {ref} from "vue";
+import {ref,onMounted,nextTick} from "vue";
 
-const qskey = ref(props.index)
-
-const props = defineProps(["qs_type","qs_title","answers","index","textkey"])
+const props = defineProps(["qs_type", "qs_title", "answers", "index", "textkey"])
 
 </script>
 

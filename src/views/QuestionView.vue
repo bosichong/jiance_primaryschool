@@ -19,7 +19,7 @@
       </Header>
     </div>
     <div class="container">
-      <div class="content" v-if="qs_list">
+      <div class="content" v-if="qs_list" @keyup.ctrl.enter="handleNextQuestion">
         <GameStart
             :index="currentIndex"
             :title="qs_title"
