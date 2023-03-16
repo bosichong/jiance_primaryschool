@@ -2,7 +2,7 @@
   <div class="main">
     <div class="header">
       <Header>
-        <div style="width: 50vw; text-align: center">
+        <n-space vertical style="width: 50vw; text-align: center">
             <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
                   v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
               <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
@@ -15,7 +15,7 @@
               :percentage="percentage"
               :indicator-placement="'inside'"
           />
-        </div>
+        </n-space>
       </Header>
     </div>
     <div class="container">
@@ -50,6 +50,7 @@
               :qs_title="qs_list[currentIndex].question"
               :answers="answers"
               :index="currentIndex"
+              :key="textkey"
           />
 
           <QuestionInput
@@ -57,7 +58,7 @@
               :qs_title="qs_list[currentIndex].question"
               :answers="answers"
               :index="currentIndex"
-              :textkey="textkey"
+              :key="textkey"
           />
 
         </div>
@@ -238,14 +239,10 @@ const gameOver = () => {
 
 .header,
 .footer {
-  height: 36px;
-  line-height: 36px;
+  height: 60px;
   padding: 1vh;
 }
 
-.qt_textarea {
-  text-align: left;
-}
 
 
 </style>

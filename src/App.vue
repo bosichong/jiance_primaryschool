@@ -1,25 +1,27 @@
 <template>
   <n-config-provider :theme="theme">
     <n-message-provider>
-    <RouterView />
+      <RouterView/>
     </n-message-provider>
-    <n-global-style />
+    <n-global-style/>
   </n-config-provider>
 
 </template>
 
 <script setup>
 import {useUserStore} from "@/store/user";
-import { storeToRefs } from 'pinia'
+import {storeToRefs} from 'pinia'
 
 const store = useUserStore()
-const { theme } = storeToRefs(store)
+const {theme} = storeToRefs(store)
 
 
 </script>
 
 <style>
-
+#app {
+  font-size: 1.1rem;
+}
 
 
 </style>
