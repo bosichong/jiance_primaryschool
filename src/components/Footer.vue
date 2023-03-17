@@ -4,11 +4,7 @@
       <slot name="left"></slot>
     </n-space>
     <n-space>
-        <n-button text style="font-size: 24px" type="success" @click="handleClick">
-          <n-icon size="24">
-            <LogoGithub/>
-          </n-icon>
-        </n-button>
+      <slot name="center"></slot>
     </n-space>
     <n-space>
       <slot name="right"></slot>
@@ -16,11 +12,7 @@
   </n-space>
 </template>
 <script setup>
-import {LogoGithub} from '@vicons/ionicons5'
 
-const handleClick = () =>{
-  window.open("https://github.com/bosichong/JianCe");
-}
 </script>
 <style>
 </style>

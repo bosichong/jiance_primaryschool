@@ -10,7 +10,13 @@
       </n-layout-content>
     </div>
     <div class="footer">
-      <Footer></Footer>
+      <Footer>
+        <template v-slot:center>
+
+            <GithubBtn/>
+
+        </template>
+      </Footer>
     </div>
   </div>
 
@@ -20,6 +26,7 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import QuestionBankList from "@/components/QuestionBankList.vue";
+import GithubBtn from "@/components/buttons/GithubBtn.vue";
 </script>
 <style>
 a {

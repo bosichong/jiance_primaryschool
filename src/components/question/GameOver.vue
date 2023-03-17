@@ -71,4 +71,7 @@ const score = computed(() => {
 </script>
 
 <style scoped>
+.n-table{
+  font-size: 1rem;
+}
 </style>

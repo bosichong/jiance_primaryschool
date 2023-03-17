@@ -20,7 +20,7 @@ const {theme} = storeToRefs(store)
 
 <style>
 #app {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 
