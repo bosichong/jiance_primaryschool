@@ -1,10 +1,10 @@
 [
   {
-    "title": "小学数学",
+    "title": "小学数学复习",
     "items": [
       {
-        "title": "概念、定义、定理",
-        "description": "小学数学概念定义定理",
+        "title": "小学数学概念、定义、定理",
+        "description": "本套题包括小学数学大部分定理定义，主要是检查孩子对这些知识掌握是否牢固。",
         "url": "/question/math/math1"
       }
     ]
