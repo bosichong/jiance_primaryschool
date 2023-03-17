@@ -60,13 +60,7 @@
               :key="textkey"
           />
 
-          <n-text type="success">
-          <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
-                v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
-            答题倒计时:
-            <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
-          </span>
-          </n-text>
+
 
         </n-space>
 
@@ -90,6 +84,18 @@
           </n-button>
         </template>
 
+        <template v-slot:center>
+
+
+
+          <n-text type="success">
+          <span style="font-variant-numeric: tabular-nums; white-space: nowrap"
+                v-if="currentIndex >= 0 && currentIndex < qs_list.length ">
+            <n-countdown :duration="qs_time * 1000" :precision="2" :active="countdown_active" :on-finish="gameOver"/>
+          </span>
+          </n-text>
+        </template>
+
         <template v-if="currentIndex >= 0 && currentIndex < qs_list.length" v-slot:right>
           <n-button @click="handleNextQuestion" type="success" ghost>
             下一题
@@ -111,7 +117,6 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import GameStart from "@/components/question/GameStart.vue";
 import GameOver from "@/components/question/GameOver.vue";
-import QsTitle from "@/components/question/QsTitle.vue";
 import QuestionRadio from "@/components/question/QuestionRadio.vue";
 import QuestionCheckbox from "@/components/question/QuestionCheckbox.vue";
 import QuestionSwitch from "@/components/question/QuestionSwitch.vue";
@@ -250,8 +255,9 @@ const gameOver = () => {
 
 .header,
 .footer {
-  height: 60px;
+  height: 4vh;
   padding: 1vh;
+
 }
 
 
