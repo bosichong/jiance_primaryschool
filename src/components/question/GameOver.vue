@@ -9,7 +9,7 @@
           <n-button type="tertiary">返回首页</n-button>
         </router-link>
       </n-space>
-      <n-table :bordered="false" :single-line="false">
+      <n-table :bordered="false" :single-line="false" v-if="error_answers.length > 0">
         <thead>
         <tr>
           <th>出错问题</th>
