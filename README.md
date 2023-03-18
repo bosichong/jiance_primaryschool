@@ -17,7 +17,7 @@ JianCe是一个简简单单的学习结果检测的小工具，通过设置一�
 - [x] 添加ctrl+enter 进行下一道题。
 - [ ] 控制页面的文字大小。
 
-
+演示页面：[bosichong.github.io/JianCe/](bosichong.github.io/JianCe/)
 
 界面预览：
 
