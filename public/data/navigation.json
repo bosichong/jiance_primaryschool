@@ -6,7 +6,7 @@
       {
         "title": "JavaScript基础测试题",
         "description": "description",
-        "url": "/question/test"
+        "url": "/question/javascript"
       }
     ]
   },
@@ -16,7 +16,7 @@
       {
         "title": "子标题3",
         "description": "description",
-        "url": "/question/test"
+        "url": "/question/javascript"
       }
     ]
   }
