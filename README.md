@@ -6,7 +6,7 @@
 JianCe是一个简简单单的学习结果检测的小工具，通过设置一组在线试题（题型包括：单选、多选、判断、简答）来检验学习结果。
 
 题库地址：
-https://bosichong.github.io/jiance_primaryschool/
+https://bosichong.github.io
 
 ### 目前题库
 
