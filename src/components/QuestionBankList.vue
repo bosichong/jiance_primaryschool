@@ -1,6 +1,6 @@
 <template>
 
-  <div v-for="item in navigation"  class="content">
+  <div v-for="item in nav"  class="content">
     <n-h2><n-text type="primary">{{ item.title }}</n-text></n-h2>
     <n-grid :x-gap="8" :y-gap="14" cols="1 500:2 750:3 1000:4 1200:5">
       <n-grid-item v-for="it in item.items">
@@ -19,13 +19,12 @@
 <script setup>
 import {ref} from "vue";
 import axios from "axios";
+import { nav } from "@/data/nav.js"
 
-const navigation = ref([])
-
-axios.get("/qt/navigation_a.json").then((response)=>{
-  navigation.value = response.data
-  // console.log(navigation.value)
-})
+// axios.get("/qt/navigation_a.json").then((response)=>{
+//   navigation.value = response.data
+//   // console.log(navigation.value)
+// })
 
 
 

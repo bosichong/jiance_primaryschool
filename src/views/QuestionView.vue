@@ -147,28 +147,42 @@ const currentIndex = ref(-1); //当前问题索引，-1的时候为开始页面
 const answers = ref([]); // 所有回答
 const filename = ref(route.params.filename);
 
-const textkey = ref(0)
+const textkey = ref(0) //组件的key，下一题之后会+1，防止数据相同。
 
-/**
- * 加载题库
- * @param filepath
- */
-const loadJsonData = (filepath) => {
-  let name = filepath + ".json";
-  axios
-      .get(`/qt/${name}`)
-      .then((response) => {
-        qs_title.value = response.data.title
-        qs_description.value = response.data.description
-        qs_time.value = response.data.time
-        qs_list.value = shuffleArray(response.data.questions) //随机打乱题库和题库中所有的选择题中的项目
-      })
-      .catch(() => {
-        console.warn("");
-      });
-};
+// 导入题库
+import { test } from "@/data/test.js"
+let qs ={ "test":test}
+const loadQsData = (path) => {
+  qs_title.value = qs[path].title
+  qs_description.value = qs[path].description
+  qs_time.value = qs[path].time
+  qs_list.value = shuffleArray(qs[path].questions) //随机打乱题库和题库中所有的选择题中的项目
+}
+loadQsData(filename.value)
 
-loadJsonData(filename.value);
+// /**
+//  * 加载题库 旧方法，已弃用
+//  * @param filepath
+//  */
+// const loadJsonData = (filepath) => {
+//   let name = filepath + ".json";
+//   axios
+//       .get(`/qt/${name}`)
+//       .then((response) => {
+//         qs_title.value = response.data.title
+//         qs_description.value = response.data.description
+//         qs_time.value = response.data.time
+//         qs_list.value = shuffleArray(response.data.questions) //随机打乱题库和题库中所有的选择题中的项目
+//       })
+//       .catch(() => {
+//         console.warn("");
+//       });
+// };
+//
+// loadJsonData(filename.value);
+
+
+
 
 /**
  * 下一题，通过回车键、下一页按钮来控制
