@@ -22,7 +22,7 @@ import axios from "axios";
 
 const navigation = ref([])
 
-axios.get("/data/navigation.json").then((response)=>{
+axios.get("/data/nav.json").then((response)=>{
   navigation.value = response.data
   // console.log(navigation.value)
 })

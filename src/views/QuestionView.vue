@@ -24,9 +24,10 @@
             :count="qs_list.length"
             @add-index="currentIndex++"/>
 
-        <n-space vertical class="qt" v-if="currentIndex >= 0 && currentIndex < qs_list.length">
+        <n-space vertical v-if="currentIndex >= 0 && currentIndex < qs_list.length">
 
 
+          <TypeTitle :type_title="qs_list[currentIndex].type" />
 
           <QuestionRadio
               :qs_type="qs_list[currentIndex].type"
@@ -121,6 +122,7 @@ import QuestionRadio from "@/components/question/QuestionRadio.vue";
 import QuestionCheckbox from "@/components/question/QuestionCheckbox.vue";
 import QuestionSwitch from "@/components/question/QuestionSwitch.vue";
 import QuestionInput from "@/components/question/QuestionInput.vue";
+import TypeTitle from "@/components/question/TypeTitle.vue";
 
 
 const route = useRoute();
