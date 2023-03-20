@@ -156,7 +156,7 @@ const textkey = ref(0)
 const loadJsonData = (filepath) => {
   let name = filepath + ".json";
   axios
-      .get(`/data/${name}`)
+      .get(`/qt/${name}`)
       .then((response) => {
         qs_title.value = response.data.title
         qs_description.value = response.data.description
