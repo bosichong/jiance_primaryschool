@@ -257,7 +257,6 @@ const gameOver = () => {
 
 .header,
 .footer {
-  height: 4vh;
   padding: 1vh;
 
 }
